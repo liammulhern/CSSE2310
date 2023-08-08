@@ -1,14 +1,14 @@
-### Computing Systems Principles And Programming (CSSE2310)
-# 1. Initialising C programs
+# Computing Systems Principles And Programming (CSSE2310)
+## Initialising C programs
 
-```
+```C
 int main() {
     // Body of code entry point from shell
     return 1;
 }
 ```
 
-# 2. Building C programs
+## Building C programs
 ```dos
     gcc -o <file name> <c file name>
 
@@ -16,84 +16,102 @@ int main() {
 ```
 
 Compile flags 
-    -std=c99
-    -g : Debug Info
-    -Wall
-    -pedantic
+*   -std=c99
+*   -g : Debug Info
+*   -Wall
+*   -pedantic
 
-# 3. GNU manual (man) command
+## GNU manual (man) command
 Outlines command for help with linux commands and library functions
 
-## Basic C Programming
-# Printf
+Compiling with header files require the correct flags.
 
-```
-    printf("Hello World")
-```
-
-Placeholder (%) indicates the start of a format specifier that allows variables 
-to be formatted in std out message. 
-
-Placeholders must describe the type of variable being formatted e.g %d (int)i, 
-%u (uint)
-
-# Header Files
-
-```
-    #include <headername.h>
-    #include <stdio.h>
-```
-
-Compiling with header files require the correct flags. Use
-
-```
+``` dos
     man <function>  
 ```
 
 To see the package flags to include 
 
-```
+``` dos
     man man
 ```
 
 Gives detail on man instructions (useful for looking for man page sections)
 
-```
+``` dos
     man -k <function>
 ```
 
-Give details for all functions with name.
+Gives details for all functions with name.
 
-# Types
+# Basic C Programming
+## Printf
+
+``` C
+    printf("Hello World");
+```
+
+Placeholder (%) indicates the start of a format specifier that allows variables 
+to be formatted in std out message. 
+
+Placeholders must describe the type of variable being formatted. 
+
+*   %d : int 
+*   %u : uint
+*   %x : hex
+*   %c : char
+*   %s : string
+*   %p : pointer 
+
+## Header Files
+
+Used to add additional functionality to .c file through the inclusion of 
+functions contained within other files.
+
+``` C
+    #include <headername.h>
+    #include <stdio.h>
+
+    #include "directory.h"
+```
+
+## Types
 int
-    - integer (16 | 32 | 64 bit)
+: integer (16 | 32 | 64 bit)
 unsigned int 
-    - unsigned integer
+: unsigned integer
 char 
-    - character (8 bit)
+: character (8 bit)
 float 
-    - single precision floating point number
+: single precision floating point number
 double 
-    - double precision floating point number
+: double precision floating point number
 array 
-    - array of type (int numb[10];)
-    - Initialised when declared (int num[] = {1, 2, 3};)
+: array of type (int numb[10];)
+: Initialised when declared (int num[] = {1, 2, 3};)
 string 
-    - array of char (char str[] = "hello";)
-    - strings require mempory for one extra character than given
+: array of char (char str[] = "hello";)
+: strings require mempory for one extra character than given
 
-# Parameters of main
+## Parameters of main
 
-Main is the entry point to a program. It contains 2 Parameters that describe 
-an array of strings.
+Main is the entry point to a program. It contains 2 parameters that describe 
+an array of strings that are input from the command line.
 
+``` C
+    int main(int argc, char** argv) {
+	...
+    }
 ```
-    int argc: The number of strings in the array
-    char** argv or char* argv[]: The array itself
-```
 
-argv[0]: program name
-argv[...]: command line arguments
+argc
+: The number of strings in the array
+argv 
+: The array itself
+
+*   argv[0]: program name
+
+*   argv[1...(argc - 1)]: command line arguments
 
 Note: C arrays are not range checked (i.e. can access elements off the 
 end of the array)
@@ -103,8 +121,7 @@ end of the array)
 Allows indirection of variables by referencing memory addresses.
 A pointer is typed to the type of the variable it is pointing to.
 
-e.g.
-```
+``` C
     int* a = 0; // Create vairable a that points to memory address 0.
 ```
 
@@ -113,27 +130,60 @@ Note: In MOSS pointer addresses are sized to 64 bits.
 Pointers are dereferenced to grab the actual value at the memory location 
 using the * operator.
 
-e.g.
-```
+``` C
     int value = *a; // Dereference pointer to grab value in memory adress a.
 ```
 
-# Memory Allocation
+## NULL Pointers
 
-malloc allocates dynamic memory that can be assigned during run time.
+Included in the \<stddef.h\> library. 
 
-e.g. Initalise pointer p with allocated memory address returned by malloc.
+New pointers should be initialised to NULL which is equivalent to void\* 0
+
+## Generic Pointer
+
+These are pointers without a type and cannot be dereferenced unless they are
+cast to a type. They can point to any data type.
+
 ```
+    void* p;
+```
+
+
+# Parameter Passing to Functions
+
+Changing local variables does not effect the variables passed to the 
+function unless they are pointers.
+
+# Memory
+## Memory Allocation
+
+malloc() allocates dynamic memory that can be assigned during run time.
+
+Initalise pointer p with address of allocated memory of size int returned by 
+malloc.
+
+``` C
     int* p = (int*)malloc(sizeof(int));
 ```
 
-Note: C does not guarantee that memory is initialised to 0
+Note: C does not guarantee that memory is initialised to 0 when using malloc
 
+Intialise pointer p with address of allocated memory of size int * 10 and 
+initialise memory to 0.
+
+``` C
+    int* p = (int*)calloc(10, sizeof(int));
+```
+
+## Memory Free
 Memory leaks are caused when pointer references are lost and memory cannot
 be freed.
 
-e.g. Free memory at pointer memory address
-```
+The free() function is used to free allocated memory at pointer's  
+memory address
+
+``` C
     free(void *ptr);
 ```
 
@@ -141,33 +191,101 @@ Dangling pointers occur when memory has been freed but another pointer is
 still referencing the memory address. This means the memory can be changed 
 unexpectedly when dereferenced.
 
-e.g. Intialise memory of size and initialise memory to 0
-```
-    int* p = calloc (int *)calloc(10, sizeof(int));
-```
+## Memory Reallocation
 
 Memory reallocation occurs when memory size has to increase to store more data.
 
-e.g Reallocate memory from a previous memory address pointer.
+Reallocate memory from a pointer's previous memory address to a larger segment.
+
+``` C
+    int* p = (int*)malloc(sizeof(int));
+
+    int* q = (int*)realloc(p, sizeof(int) * 2);
 ```
 
+## Allocating blocks of memory
+
+Blocks of memory can be manipulated after they are allocated to change the
+data. 
+
+Memset sets the memory at a pointer to a value for a size n.
+
+``` C
+    *memset(void *p, int c, size_t n);
 ```
 
-# Dynamic Arrays
+Memcpy copies data from an allocated source to a destination.
 
-Arrays are inherently pointers with the address &arr[0] 
+``` C
+    *memcpy(void *dest, const void *src, size_t n);
+```
 
-# NULL Pointers
+Note: When copying memory buffers must not overlap .
 
-Included in the stddef.h library. New pointers should be initialised to NULL.
+## Memory Location
 
+Dynamically allocated memory is stored on the heap whilst function variables 
+are stored on the stack
+
+Heap memory is only cleaned up when explicitly told to in the programs runtime.
+The heap can store far larger data structures.
+
+# Arrays
+
+Arrays are inherently pointers with the address &arr[0].
+
+Arrays are initialised with a fixed size which limits how many elements of a
+set type they can store in memory.
+
+## Dynamic Arrays
+
+Dynamic arrays allocate memory as the size of the elements increases using
+the memory functions.
+
+## Multidimensional Arrays
+
+Arrays of arrays of arrays... can be represented as either a n dimensional
+pointer of n dimensional array such as int array\[M\]\[N\] (2D Array M x N).
+
+### 1D array
+
+Multidimensional arrays can be faked with lower dimensional arrays by 
+flattening the matrix and creating a mapping functions that takes the ND 
+coordinates and maps it to the lower dimension.
+
+A 2D array can be flattened as follows
+
+``` C
+    int* array = malloc(sizeof(int) * M * N);
+```
+
+And an element can be found at
+    
+``` C
+    int element = arr[i*M+j];
+```
+
+Where i and j are the rows an columns.
+
+### 2D array
+
+``` C
+    int** arr = malloc(sizeof(int*) * M);
+
+    for (int i = 0; i < M; i++) {
+	arr[i] = malloc(sizeof(int) * N);
+    }
+
+    int element = arr[i][j];
+```
+ 
 # Structures (Structs)
 
 Group data types together in 'parent' struct.
 
+Difference between pointer and instanced struct.
 
-e.g. Difference between pointer and instanced struct
-```
+``` C
     struct Data {
 	int length;
 	char* str;
@@ -180,80 +298,20 @@ e.g. Difference between pointer and instanced struct
     d2->length = 10;
 ```
 
-# Allocating blocks of memory
-```
-    *memset(void *s //Pointer ot memory, int c //Value to initalise to, 
-	size_t n //# of bytes);
-    *memcpy(void *dest, const void *src, size_t n);
-```
-Note: When copying memory buffers must not overlap 
-
-Dynamically allocated memory is stored on the heap whilst function variables 
-are stored on the stack
-
-Heap memory is only cleaned up when explicitly told to in the programs runtime.
-The heap can store far larger data structures.
-
-# Generic Pointer
-
-    void*
-
-These are pointers without a type and cannot be dereferenced.
-
-# Parameter Passing to Functions
-
-Changing local variables does not effect the variables passed to the 
-function unless they are pointers.
-
-# Strings
-
-```
-    char* string
-```
-
-# Multidimensional Arrays
-
-int array[M][N] - 2D Array
-
-##1D array
-
-``` C
-    int* array = malloc(sizeof(int) * M * N);
-```
-
-Look up with:
-    
-```
-    arr[i*M+j] 
-```
-
-Where i and j are the rows an columns.
-
-##2D array
-
-``` C
-    int** arr = malloc(sizeof(int*) * M);
-
-    for (int i = 0; i < M; i++) {
-	arr[i] = malloc(sizeof(int) * N);
-    }
-
-    arr[i][j]
-```
-  
-#Files
+ 
+# Files
 
 The type for C standard I/O files is FILE\*
 
 To interact use fopen(), use fclose() when finished.
 
-##Special File Types
+## Special File Types
 
 *   stdin is for reading from the console
 *   stdout if for writing to the console
 *   stderr is for writing errors to the console
 
-##Reading Files
+## Reading Files
 
 ``` C
     FILE* in = fopen(<filename>, "r");
@@ -277,46 +335,64 @@ a readable error message to stderr with prefix.
     perror("\<prefix\>");	
 ```
 
-#Comma operator
+# Comma operator
 
 Evaluates expressions in order give. 
 
-#Output Functions
+# Output Functions
 
-*   fprintf() - Handles printing formatted string to output
-*   fputc() - Handles printing char data to the output
-*   fputs() - Handles printing string data to the ouput
-*   fwrite() - Handles printing binary data to the output
+*   fprintf() 
+: Handles printing formatted string to output
+*   fputc() 
+: Handles printing char data to the output
+*   fputs() 
+: Handles printing string data to the ouput
+*   fwrite() 
+: Handles printing binary data to the output
 
-##Buffered Output
+## Buffered Output
 
 Buffers need to be flushed from memory to output to stream. 
 
-#Input Functions
+# Input Functions
 
 *   fgets() 
+: Reads a line from the specified stream and stores it into the string pointed 
+to by str. It stops when either (n-1) characters are read, the newline 
+character is read, or the end-of-file is reached, whichever comes first.
 *   fgetc()
+: Gets the next character (an unsigned char) from the specified stream and 
+advances the position indicator for the stream.
 *   fread()
+: Reads data from the given stream into the array pointed to, by ptr.
 
-##Read Formatted Input
+## Read Formatted Input
 
 fscanf() reads input stream and returns typed pointers.
 Ignores whitespace until it reads format specifier.
 
 sscanf() reads string for format specifiers and returns typed pointer. 
 
-#Preprocessor
+# Preprocessor
 
 Runs before the main compile and deals with # directives.
 
-*   #define - Performs textual substitution
-	- Expanded #define CUBE(X) ((X) * (X) * (X)) substitutes into X
-*   #include - Includes library/header/etc
+*   #define 
+: Performs textual substitution
+: Can store variables to textually expanded via substitutions
+
+``` C
+    #define CUBE(X) ((X) * (X) * (X)) 
+```
+
+*   #include 
+: Includes library/header/etc
 
 ##Conditional Compilation
 
 Header guards stop redefinition of defintions using conditional statements.
-```
+
+``` C
     #ifndef DEF
     #define DEF
 	//Definitions here
@@ -327,7 +403,7 @@ Header guards stop redefinition of defintions using conditional statements.
 
 Store states in a word that corresponds to an integer value.
 
-```
+``` C
     enum Day {
 	SUNDAY = 0,
 	MONDAY = 1,
@@ -343,7 +419,7 @@ Can be used with any integer-like type.
 case statements must be constant.
 Missing break statements cause fall throw.
 
-```
+``` C
     switch(d) {
 	case SUNDAY:
 	    ...
@@ -359,7 +435,7 @@ Missing break statements cause fall throw.
 
 #Break
 
-Breaks out of inner most loop or switch stament 
+Breaks out of inner most loop or switch stament.
 
 #Continue
 
