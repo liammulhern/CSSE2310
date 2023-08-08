@@ -88,8 +88,8 @@ functions contained within other files.
 *   double 
     - double precision floating point number
 *   array 
-    - array of type (int numb[10];)
-    - Initialised when declared (int num[] = {1, 2, 3};)
+    - array of type (int num[10])
+    - Initialised when declared (int num[] = {1, 2, 3})
 *   string 
     - array of char (char str[] = "hello";)
     - strings require mempory for one extra character than given
@@ -105,16 +105,13 @@ int main(int argc, char** argv) {
 }
 ```
 
-*   argc
-    - The number of strings in the array
-
-*   argv 
-    - The array itself
+*   argc : The number of strings in the array.
+*   argv : The array itself.
 
 The argv array is constructed as follows.
 
-*   argv[0] : program name
-*   argv[1...] : command line arguments
+*   argv[0] : Program name.
+*   argv[1...] : Command line arguments.
 
 Note: C arrays are not range checked (i.e. can access elements off the 
 end of the array)
@@ -309,11 +306,11 @@ To interact use fopen(), use fclose() when finished.
 
 ## Special File Types
 
-*   stdin 
+*   stdin :
     -	Reading from the console
-*   stdout
+*   stdout :
     -	Writing to the console
-*   stderr 
+*   stderr :
     -	Writing errors to the console
 
 ## Reading Files
@@ -347,13 +344,13 @@ Evaluates expressions in order give.
 
 # Output Functions
 
-*   fprintf() 
+*   fprintf() :
     - Handles printing formatted string to output
-*   fputc() 
+*   fputc() :
     - Handles printing char data to the output
-*   fputs() 
+*   fputs() :
     - Handles printing string data to the ouput
-*   fwrite() 
+*   fwrite() :
     - Handles printing binary data to the output
 
 ## Buffered Output
@@ -362,14 +359,14 @@ Buffers need to be flushed from memory to output to stream.
 
 # Input Functions
 
-*   fgets() 
+*   fgets() :
     - Reads a line from the specified stream and stores it into the string pointed 
 to by str. It stops when either (n-1) characters are read, the newline 
 character is read, or the end-of-file is reached, whichever comes first.
-*   fgetc()
+*   fgetc() :
     - Gets the next character (an unsigned char) from the specified stream and 
 advances the position indicator for the stream.
-*   fread()
+*   fread() :
     - Reads data from the given stream into the array pointed to, by ptr.
 
 ## Read Formatted Input
@@ -394,7 +391,7 @@ Runs before the main compile and deals with # directives.
 *   #include 
     - Includes library/header/etc
 
-##Conditional Compilation
+## Conditional Compilation
 
 Header guards stop redefinition of defintions using conditional statements.
 
