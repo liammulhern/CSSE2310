@@ -18,7 +18,7 @@ $ ./<file name>
 
 Compile flags 
 *   -std=c99
-*   -g : Debug Info
+*   -g 
 *   -Wall
 *   -pedantic
 
@@ -78,21 +78,21 @@ functions contained within other files.
 
 ## Types
 *   int
-- integer (16 | 32 | 64 bit)
+    - integer (16 | 32 | 64 bit)
 *   unsigned int 
-- unsigned integer
+    - unsigned integer
 *   char 
-- character (8 bit)
+    - character (8 bit)
 *   float 
-- single precision floating point number
+    - single precision floating point number
 *   double 
-- double precision floating point number
+    - double precision floating point number
 *   array 
-- array of type (int numb[10];)
-- Initialised when declared (int num[] = {1, 2, 3};)
+    - array of type (int numb[10];)
+    - Initialised when declared (int num[] = {1, 2, 3};)
 *   string 
-- array of char (char str[] = "hello";)
-- strings require mempory for one extra character than given
+    - array of char (char str[] = "hello";)
+    - strings require mempory for one extra character than given
 
 ## Parameters of main
 
@@ -105,15 +105,16 @@ int main(int argc, char** argv) {
 }
 ```
 
-argc
-- The number of strings in the array
-argv 
-- The array itself
+*   argc
+    - The number of strings in the array
+
+*   argv 
+    - The array itself
 
 The argv array is constructed as follows.
 
-*   argv[0]: program name
-*   argv[1...(argc - 1)]: command line arguments
+*   argv[0] : program name
+*   argv[1...] : command line arguments
 
 Note: C arrays are not range checked (i.e. can access elements off the 
 end of the array)
@@ -308,9 +309,12 @@ To interact use fopen(), use fclose() when finished.
 
 ## Special File Types
 
-*   stdin is for reading from the console
-*   stdout if for writing to the console
-*   stderr is for writing errors to the console
+*   stdin 
+    -	Reading from the console
+*   stdout
+    -	Writing to the console
+*   stderr 
+    -	Writing errors to the console
 
 ## Reading Files
 
@@ -344,13 +348,13 @@ Evaluates expressions in order give.
 # Output Functions
 
 *   fprintf() 
-- Handles printing formatted string to output
+    - Handles printing formatted string to output
 *   fputc() 
-- Handles printing char data to the output
+    - Handles printing char data to the output
 *   fputs() 
-- Handles printing string data to the ouput
+    - Handles printing string data to the ouput
 *   fwrite() 
-- Handles printing binary data to the output
+    - Handles printing binary data to the output
 
 ## Buffered Output
 
@@ -359,14 +363,14 @@ Buffers need to be flushed from memory to output to stream.
 # Input Functions
 
 *   fgets() 
-- Reads a line from the specified stream and stores it into the string pointed 
+    - Reads a line from the specified stream and stores it into the string pointed 
 to by str. It stops when either (n-1) characters are read, the newline 
 character is read, or the end-of-file is reached, whichever comes first.
 *   fgetc()
-- Gets the next character (an unsigned char) from the specified stream and 
+    - Gets the next character (an unsigned char) from the specified stream and 
 advances the position indicator for the stream.
 *   fread()
-- Reads data from the given stream into the array pointed to, by ptr.
+    - Reads data from the given stream into the array pointed to, by ptr.
 
 ## Read Formatted Input
 
@@ -380,15 +384,15 @@ sscanf() reads string for format specifiers and returns typed pointer.
 Runs before the main compile and deals with # directives.
 
 *   #define 
-- Performs textual substitution
-- Can store variables to textually expanded via substitutions
+    - Performs textual substitution
+    - Can store variables to textually expanded via substitutions
 
 ``` C
 #define CUBE(X) ((X) * (X) * (X)) 
 ```
 
 *   #include 
-- Includes library/header/etc
+    - Includes library/header/etc
 
 ##Conditional Compilation
 
