@@ -1,18 +1,19 @@
 # Computing Systems Principles And Programming (CSSE2310)
 ## Initialising C programs
 
-```C
+Body of code entry point from shell.
+
+``` C
 int main() {
-    // Body of code entry point from shell
     return 1;
 }
 ```
 
 ## Building C programs
 ```dos
-    gcc -o <file name> <c file name>
+$ gcc -o <file name> <file name.c>
 
-    ./<file name>
+$ ./<file name>
 ```
 
 Compile flags 
@@ -27,19 +28,19 @@ Outlines command for help with linux commands and library functions
 Compiling with header files require the correct flags.
 
 ``` dos
-    man <function>  
+$ man <function>
 ```
 
 To see the package flags to include 
 
 ``` dos
-    man man
+$ man man
 ```
 
 Gives detail on man instructions (useful for looking for man page sections)
 
 ``` dos
-    man -k <function>
+$ man -k <function>
 ```
 
 Gives details for all functions with name.
@@ -48,7 +49,7 @@ Gives details for all functions with name.
 ## Printf
 
 ``` C
-    printf("Hello World");
+printf("Hello World");
 ```
 
 Placeholder (%) indicates the start of a format specifier that allows variables 
@@ -69,29 +70,29 @@ Used to add additional functionality to .c file through the inclusion of
 functions contained within other files.
 
 ``` C
-    #include <headername.h>
-    #include <stdio.h>
+#include <headername.h>
+#include <stdio.h>
 
-    #include "directory.h"
+#include "directory.h"
 ```
 
 ## Types
-int
-: integer (16 | 32 | 64 bit)
-unsigned int 
-: unsigned integer
-char 
-: character (8 bit)
-float 
-: single precision floating point number
-double 
-: double precision floating point number
-array 
-: array of type (int numb[10];)
-: Initialised when declared (int num[] = {1, 2, 3};)
-string 
-: array of char (char str[] = "hello";)
-: strings require mempory for one extra character than given
+*   int
+- integer (16 | 32 | 64 bit)
+*   unsigned int 
+- unsigned integer
+*   char 
+- character (8 bit)
+*   float 
+- single precision floating point number
+*   double 
+- double precision floating point number
+*   array 
+- array of type (int numb[10];)
+- Initialised when declared (int num[] = {1, 2, 3};)
+*   string 
+- array of char (char str[] = "hello";)
+- strings require mempory for one extra character than given
 
 ## Parameters of main
 
@@ -99,18 +100,19 @@ Main is the entry point to a program. It contains 2 parameters that describe
 an array of strings that are input from the command line.
 
 ``` C
-    int main(int argc, char** argv) {
-	...
-    }
+int main(int argc, char** argv) {
+    ...
+}
 ```
 
 argc
-: The number of strings in the array
+- The number of strings in the array
 argv 
-: The array itself
+- The array itself
+
+The argv array is constructed as follows.
 
 *   argv[0]: program name
-
 *   argv[1...(argc - 1)]: command line arguments
 
 Note: C arrays are not range checked (i.e. can access elements off the 
@@ -122,7 +124,7 @@ Allows indirection of variables by referencing memory addresses.
 A pointer is typed to the type of the variable it is pointing to.
 
 ``` C
-    int* a = 0; // Create vairable a that points to memory address 0.
+int* a = 0; // Create vairable a that points to memory address 0.
 ```
 
 Note: In MOSS pointer addresses are sized to 64 bits.
@@ -131,7 +133,7 @@ Pointers are dereferenced to grab the actual value at the memory location
 using the * operator.
 
 ``` C
-    int value = *a; // Dereference pointer to grab value in memory adress a.
+int value = *a; // Dereference pointer to grab value in memory adress a.
 ```
 
 ## NULL Pointers
@@ -146,9 +148,8 @@ These are pointers without a type and cannot be dereferenced unless they are
 cast to a type. They can point to any data type.
 
 ```
-    void* p;
+void* p;
 ```
-
 
 # Parameter Passing to Functions
 
@@ -164,7 +165,7 @@ Initalise pointer p with address of allocated memory of size int returned by
 malloc.
 
 ``` C
-    int* p = (int*)malloc(sizeof(int));
+int* p = (int*)malloc(sizeof(int));
 ```
 
 Note: C does not guarantee that memory is initialised to 0 when using malloc
@@ -173,7 +174,7 @@ Intialise pointer p with address of allocated memory of size int * 10 and
 initialise memory to 0.
 
 ``` C
-    int* p = (int*)calloc(10, sizeof(int));
+int* p = (int*)calloc(10, sizeof(int));
 ```
 
 ## Memory Free
@@ -184,7 +185,7 @@ The free() function is used to free allocated memory at pointer's
 memory address
 
 ``` C
-    free(void *ptr);
+free(void *ptr);
 ```
 
 Dangling pointers occur when memory has been freed but another pointer is 
@@ -198,9 +199,9 @@ Memory reallocation occurs when memory size has to increase to store more data.
 Reallocate memory from a pointer's previous memory address to a larger segment.
 
 ``` C
-    int* p = (int*)malloc(sizeof(int));
+int* p = (int*)malloc(sizeof(int));
 
-    int* q = (int*)realloc(p, sizeof(int) * 2);
+int* q = (int*)realloc(p, sizeof(int) * 2);
 ```
 
 ## Allocating blocks of memory
@@ -211,13 +212,13 @@ data.
 Memset sets the memory at a pointer to a value for a size n.
 
 ``` C
-    *memset(void *p, int c, size_t n);
+*memset(void *p, int c, size_t n);
 ```
 
 Memcpy copies data from an allocated source to a destination.
 
 ``` C
-    *memcpy(void *dest, const void *src, size_t n);
+*memcpy(void *dest, const void *src, size_t n);
 ```
 
 Note: When copying memory buffers must not overlap .
@@ -256,13 +257,13 @@ coordinates and maps it to the lower dimension.
 A 2D array can be flattened as follows
 
 ``` C
-    int* array = malloc(sizeof(int) * M * N);
+int* array = malloc(sizeof(int) * M * N);
 ```
 
 And an element can be found at
     
 ``` C
-    int element = arr[i*M+j];
+int element = arr[i*M+j];
 ```
 
 Where i and j are the rows an columns.
@@ -270,13 +271,13 @@ Where i and j are the rows an columns.
 ### 2D array
 
 ``` C
-    int** arr = malloc(sizeof(int*) * M);
+int** arr = malloc(sizeof(int*) * M);
 
-    for (int i = 0; i < M; i++) {
-	arr[i] = malloc(sizeof(int) * N);
-    }
+for (int i = 0; i < M; i++) {
+    arr[i] = malloc(sizeof(int) * N);
+}
 
-    int element = arr[i][j];
+int element = arr[i][j];
 ```
  
 # Structures (Structs)
@@ -286,16 +287,16 @@ Group data types together in 'parent' struct.
 Difference between pointer and instanced struct.
 
 ``` C
-    struct Data {
-	int length;
-	char* str;
-    };
+struct Data {
+    int length;
+    char* str;
+};
 
-    struct Data d1;
-    struct Data* d2 = malloc(sizeof(struct Data));
+struct Data d1;
+struct Data* d2 = malloc(sizeof(struct Data));
 
-    d1.length = 10;
-    d2->length = 10;
+d1.length = 10;
+d2->length = 10;
 ```
 
  
@@ -314,15 +315,16 @@ To interact use fopen(), use fclose() when finished.
 ## Reading Files
 
 ``` C
-    FILE* in = fopen(<filename>, "r");
-    do {
-	int c = fgetc(in);
+FILE* in = fopen(<filename>, "r");
 
-	if (c != EOF) {
-	    continue...
-	}
+do {
+    int c = fgetc(in);
 
-    } while (!feof(in));
+    if (c != EOF) {
+	continue...
+    }
+
+} while (!feof(in));
 ```
 
 If a file cannot be opened or does not exist, NULL is returned from
@@ -332,7 +334,7 @@ errno returns the error number if file cannot be opened. perror() prints
 a readable error message to stderr with prefix.
 
 ``` C
-    perror("\<prefix\>");	
+perror("<prefix>");	
 ```
 
 # Comma operator
@@ -342,13 +344,13 @@ Evaluates expressions in order give.
 # Output Functions
 
 *   fprintf() 
-: Handles printing formatted string to output
+- Handles printing formatted string to output
 *   fputc() 
-: Handles printing char data to the output
+- Handles printing char data to the output
 *   fputs() 
-: Handles printing string data to the ouput
+- Handles printing string data to the ouput
 *   fwrite() 
-: Handles printing binary data to the output
+- Handles printing binary data to the output
 
 ## Buffered Output
 
@@ -357,14 +359,14 @@ Buffers need to be flushed from memory to output to stream.
 # Input Functions
 
 *   fgets() 
-: Reads a line from the specified stream and stores it into the string pointed 
+- Reads a line from the specified stream and stores it into the string pointed 
 to by str. It stops when either (n-1) characters are read, the newline 
 character is read, or the end-of-file is reached, whichever comes first.
 *   fgetc()
-: Gets the next character (an unsigned char) from the specified stream and 
+- Gets the next character (an unsigned char) from the specified stream and 
 advances the position indicator for the stream.
 *   fread()
-: Reads data from the given stream into the array pointed to, by ptr.
+- Reads data from the given stream into the array pointed to, by ptr.
 
 ## Read Formatted Input
 
@@ -378,65 +380,64 @@ sscanf() reads string for format specifiers and returns typed pointer.
 Runs before the main compile and deals with # directives.
 
 *   #define 
-: Performs textual substitution
-: Can store variables to textually expanded via substitutions
+- Performs textual substitution
+- Can store variables to textually expanded via substitutions
 
 ``` C
-    #define CUBE(X) ((X) * (X) * (X)) 
+#define CUBE(X) ((X) * (X) * (X)) 
 ```
 
 *   #include 
-: Includes library/header/etc
+- Includes library/header/etc
 
 ##Conditional Compilation
 
 Header guards stop redefinition of defintions using conditional statements.
 
 ``` C
-    #ifndef DEF
-    #define DEF
-	//Definitions here
-    #endif
+#ifndef DEF
+#define DEF
+    ... // Definitions here
+#endif
 ```
 
-#Enums
+# Enums
 
 Store states in a word that corresponds to an integer value.
 
 ``` C
-    enum Day {
-	SUNDAY = 0,
-	MONDAY = 1,
-	...
-    };
+enum Day {
+    SUNDAY = 0,
+    MONDAY = 1,
+    ...
+};
 
-    enum Day d = TUESDAY;
+enum Day d = TUESDAY;
 ```
 
-#Switch
+# Switch
 
-Can be used with any integer-like type.
-case statements must be constant.
+Can be used with any integer-like type and case statements must be constant.
 Missing break statements cause fall throw.
 
 ``` C
-    switch(d) {
-	case SUNDAY:
-	    ...
-	    break;
-	case MONDAY:
-	    ...
-	    break;
-	default:
-	    ...
-	    break;
-    };
+switch(d) {
+    case SUNDAY:
+	...
+	break;
+    case MONDAY:
+	...
+	break;
+    default:
+	...
+	break;
+};
 ```
 
-#Break
+# Break
 
 Breaks out of inner most loop or switch stament.
 
-#Continue
+# Continue
 
 
