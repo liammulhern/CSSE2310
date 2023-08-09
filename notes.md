@@ -355,7 +355,9 @@ Evaluates expressions in order give.
 
 ## Buffered Output
 
-Buffers need to be flushed from memory to output to stream. 
+Buffers need to be flushed from memory to output to stream. Without flushing
+buffers it can look like the code is outputting to the stream but it is not 
+leaving memory.
 
 # Input Functions
 
@@ -371,10 +373,12 @@ advances the position indicator for the stream.
 
 ## Read Formatted Input
 
-fscanf() reads input stream and returns typed pointers.
-Ignores whitespace until it reads format specifier.
+*   fscanf() :
+    -	Reads input stream and returns typed pointers.
+    -	Ignores whitespace until it reads format specifier.
 
-sscanf() reads string for format specifiers and returns typed pointer. 
+*   sscanf() : 
+    - Reads string for format specifiers and returns typed pointer. 
 
 # Preprocessor
 
@@ -441,4 +445,119 @@ Breaks out of inner most loop or switch stament.
 
 # Continue
 
+Continues to the next iteration of the loop.
+
+# Types
+
+The size of the memory segment allocated when a type is initialised is 
+operating system dependent.
+
+# Function Pointers
+
+Callbacks allow particular and variable methods that can be changed depending
+on the instance.
+
+Event driven tasks make use of function pointers.
+
+Function pointer are typed as follows.
+
+``` C
+return (*varname) (args);
+
+int (*sum) (int, int);
+
+typedef int (*Sum) (int, int);
+```
+
+Function pointers can be stored in other data structures such as arrays.
+
+# Sizeof
+
+Returns the size of the typed variable at compilation time in bytes.
+
+*   sizeof(char) == 1
+*   sizeof(int) == 4
+*   sizeof(short) == 2
+*   sizeof(long) == 8
+*   sizeof(char\*) == 8
+
+``` C
+int main(int argc, char** argv) {
+    char* str = "Hello";
+    char strB[] = "Hello";
+
+    printf("%ld\n", sizeof(str)); // Prints 8
+    printf("%ld\n", sizeof(strB)); // Prints 6
+}
+```
+
+# Logical Evaluation
+
+The logical or || and logical and && operations evaluate until they are
+guaranteed to be true (in the case of or) or guaranteed to be false
+(in the case of and).
+
+## Logical Or ||
+
+``` C
+bool f1() {
+    printf("f1");
+    return 1;
+}
+
+bool f2() {
+    printf("f2");
+    return 0;
+}
+
+bool f3() {
+    printf("f3");
+    return -1;
+}
+
+int main() {
+    if (f1() || f2() || f3()) {
+	printf("main");
+    }
+}
+```
+
+The code above evaultes to.
+
+``` dos
+f1
+main
+```
+
+## Logical And &&
+
+``` C
+bool f1() {
+    printf("f1");
+    return 1;
+}
+
+bool f2() {
+    printf("f2");
+    return 0;
+}
+
+bool f3() {
+    printf("f3");
+    return -1;
+}
+
+int main() {
+    if (f1() && f2() && f3()) {
+	printf("main");
+    }
+}
+```
+
+The code above evaultes to.
+
+``` dos
+f1
+f2
+```
 
