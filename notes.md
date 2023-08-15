@@ -636,25 +636,18 @@ $export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
 
 # Process Memory Map
 
-|   Code segment    |
-|-------------------|
-|   Read Only Data  |
-|-----------------------|
-|   Initialised Data	|
-|-----------------------|
-|   Unitialised Data	|
-|-----------------------|
-|   Heap    |
-|-----------|
-|   Unused  |
-|-----------------------|
-|   Shared Libraries	|
-|-----------------------|
-|   Unused  |
-|-----------|
-|   Stack   |
-|---------------------------|
-|   Environment Variables   |
+| 0x00	|   Memory Map	 |
+| 0x..  |-------------------|
+| 0x..  |   Code segment    |
+| 0x..  |   Read Only Data  |
+| 0x..  |   Initialised Data	|
+| 0x..  |   Unitialised Data	|
+| 0x..  |   Heap    |
+| 0x..  |   Unused  |
+| 0x..  |   Shared Libraries	|
+| 0x..  |   Unused  |
+| 0x..  |   Stack   |
+| 0x2^48-1  |   Environment Variables   |
 
 A program's memory map can be analysed using
 
