@@ -636,9 +636,9 @@ $export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
 
 # Process Memory Map
 
-| 0x00	|   Memory Map	 |
-| 0x..  |-------------------|
-| 0x..  |   Code segment    |
+|Address|   Memory Map	    |
+|-------|-------------------|
+| 0x00  |   Code segment    |
 | 0x..  |   Read Only Data  |
 | 0x..  |   Initialised Data	|
 | 0x..  |   Unitialised Data	|
