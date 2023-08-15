@@ -501,23 +501,23 @@ guaranteed to be true (in the case of or) or guaranteed to be false
 
 ``` C
 bool f1() {
-    printf("f1");
+    printf("f1\n");
     return 1;
 }
 
 bool f2() {
-    printf("f2");
+    printf("f2\n");
     return 0;
 }
 
 bool f3() {
-    printf("f3");
+    printf("f3\n");
     return -1;
 }
 
 int main() {
     if (f1() || f2() || f3()) {
-	printf("main");
+	printf("main\n");
     }
 }
 ```
@@ -533,23 +533,23 @@ main
 
 ``` C
 bool f1() {
-    printf("f1");
+    printf("f1\n");
     return 1;
 }
 
 bool f2() {
-    printf("f2");
+    printf("f2\n");
     return 0;
 }
 
 bool f3() {
-    printf("f3");
+    printf("f3\n");
     return -1;
 }
 
 int main() {
     if (f1() && f2() && f3()) {
-	printf("main");
+	printf("main\n");
     }
 }
 ```
@@ -561,3 +561,182 @@ f1
 f2
 ```
 
+# Compilation & Linking
+
+Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
+
+GCC drives the compilation process that utilises numerous
+other programs to create the final binary executable.
+
+Compile flags can be used to stop GCC at any point along the compile length.
+
+## Object Files (ELF)
+
+Contain segments
+*   Header
+*   Code segment (executable code)
+*   Data segment (initialised static/global vars)
+*   Read-only data (constants e.g. printf())
+*   BSS segment (unitialised static/global vars/constants set to 0)
+*   External references
+*   Relocation information
+*   Debugging information
+
+# Linking
+
+Involves resolving symbols by connecting a function's method with its symbols 
+(i.e function name). 
+
+Relocation of linked files.
+
+## Static Linking
+
+Standalone executable.
+
+Significanlty larger file size as the libraries must be included.
+
+### Static Libraries
+
+Typically called libname.a
+
+Can be created using the ar command.
+
+``` dos
+$are rcs libname.a object-files
+```
+
+## Dynamic Linking
+
+Shared libraries not compiled with the executable, instead they are
+linked through a file path.
+
+### Dynamic Libraries
+
+Typically called libname.so[.version-number]
+
+Use gcc -shared:
+
+``` dos
+$gcc -shared -fPIC -o libname.so object-files
+```
+
+The -fPIC flag build source files as position independent and can be relocated.
+
+-L flag is the directory where the library is contained
+-l flag is the library file name
+
+The dynamic linker needs to know where to find shared libraries. The paths
+are found in LD_LIBRARY_PATH environment variable.
+
+``` dos
+$echo $LD_LIBRARY_PATH
+
+$export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
+```
+
+# Process Memory Map
+
+|   Code segment    |
+---------------------
+|   Read Only Data  |
+-------------------------
+|   Initialised Data	|
+-------------------------
+|   Unitialised Data	|
+-------------------------
+|   Heap    |
+-------------
+|   Unused  |
+-------------------------
+|   Shared Libraries	|
+-------------------------
+|   Unused  |
+-------------
+|   Stack   |
+-----------------------------
+|   Environment Variables   |
+-----------------------------
+
+A program's memory map can be analysed using
+
+``` dos
+$ps -U<user>
+
+$pmap -x <process id>
+```
+
+Or
+    
+``` dos
+$more /proc/<process id>/maps
+```
+
+# Storage Classes
+
+## Static
+
+Global Scope
+*   No function outside of current object file can access the static function.
+
+Local Scope
+*   'Global' like variable accessible only in local function.
+*   Does not reinitialise everytime function is called (memory state stored).
+
+## Extern
+
+Declares existence of variable when it is defined somewhere externally to the 
+current file. Dependeny is handles when linking.
+
+# Stack
+
+FIFO queue.
+
+Function Calls:
+*   push (add to top)
+*   pop (remove from top)
+
+Stack pointer points to the top memory address in the stack.
+
+## Stack Frame
+
+Associated with a function call (i.e every function call has a stack frame).
+
+Stores function: 
+*   Local variables
+*   Return address
+*   Arguments
+*   Frame pointer
+
+# Function Calling Conventions
+
+Governs how arguments are passed to functions and how results are returned.
+
+Defines which registers are caller-saved and which are callee-saved.
+
+Calling conventions differ based on the architecture/OS.
+
+# Debugging
+
+Examine a program whilst running.
+
+Requires debugging symbols to be included using -g flags
+
+``` dos
+gdb program-executable-name
+
+run [cmd-line-args]
+
+break function-name
+break filename.c:23 
+```
+
+Commands
+*   run: Start the program
+*   break: Set a breakpoint at function or line in file
+*   backtrace: Show the function call stack
+*   up/down: Move up and down on the stack
+*   next: Steps over next line and stops
+*   step: Steps into next line and stops
+*   continue: Run until next breakpoint
+*   list: Show the code aroung the stopping point
+*   print: Print value of variable / expressions
