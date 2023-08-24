@@ -17,10 +17,10 @@ $ ./<file name>
 ```
 
 Compile flags 
-*   -std=c99
-*   -g 
-*   -Wall
-*   -pedantic
+*   `-std=c99`
+*   `-g` 
+*   `-Wall`
+*   `-pedantic`
 
 ## GNU manual (man) command
 Outlines command for help with linux commands and library functions
@@ -57,12 +57,12 @@ to be formatted in std out message.
 
 Placeholders must describe the type of variable being formatted. 
 
-*   %d : int 
-*   %u : uint
-*   %x : hex
-*   %c : char
-*   %s : string
-*   %p : pointer 
+*   `%d` : int 
+*   `%u` : uint
+*   `%x` : hex
+*   `%c` : char
+*   `%s` : string
+*   `%p` : pointer 
 
 ## Header Files
 
@@ -77,21 +77,21 @@ functions contained within other files.
 ```
 
 ## Types
-*   int
+*   `int`
     - integer (16 | 32 | 64 bit)
-*   unsigned int 
+*   `unsigned int`
     - unsigned integer
-*   char 
+*   `char`
     - character (8 bit)
-*   float 
+*   `float`
     - single precision floating point number
-*   double 
+*   `double`
     - double precision floating point number
-*   array 
-    - array of type (int num[10])
-    - Initialised when declared (int num[] = {1, 2, 3})
-*   string 
-    - array of char (char str[] = "hello";)
+*   `array `
+    - array of type (`int num[10]`)
+    - Initialised when declared (`int num[] = {1, 2, 3}`)
+*   `string `
+    - array of char (`char str[] = "hello";`)
     - strings require mempory for one extra character than given
 
 ## Parameters of main
@@ -105,14 +105,14 @@ int main(int argc, char** argv, char** envp) {
 }
 ```
 
-*   argc : The number of strings in the array.
-*   argv : The array itself.
-*   envp : The environment varaibles of the user system.
+*   `argc` : The number of strings in the array.
+*   `argv` : The array itself.
+*   `envp` : The environment varaibles of the user system.
 
 The argv array is constructed as follows.
 
-*   argv[0] : Program name.
-*   argv[1...] : Command line arguments.
+*   `argv[0]` : Program name.
+*   `argv[1...]` : Command line arguments.
 
 Note: C arrays are not range checked (i.e. can access elements off the 
 end of the array)
@@ -137,9 +137,9 @@ int value = *a; // Dereference pointer to grab value in memory adress a.
 
 ## NULL Pointers
 
-Included in the \<stddef.h\> library. 
+Included in the `<stddef.h>` library. 
 
-New pointers should be initialised to NULL which is equivalent to void\* 0
+New pointers should be initialised to NULL which is equivalent to `void* 0`
 
 ## Generic Pointer
 
@@ -158,7 +158,7 @@ function unless they are pointers.
 # Memory
 ## Memory Allocation
 
-malloc() allocates dynamic memory that can be assigned during run time.
+`malloc()` allocates dynamic memory that can be assigned during run time.
 
 Initalise pointer p with address of allocated memory of size int returned by 
 malloc.
@@ -169,7 +169,7 @@ int* p = (int*)malloc(sizeof(int));
 
 Note: C does not guarantee that memory is initialised to 0 when using malloc
 
-Intialise pointer p with address of allocated memory of size int * 10 and 
+Intialise pointer p with address of allocated memory of size `sizeof(int) * 10` and 
 initialise memory to 0.
 
 ``` C
@@ -180,7 +180,7 @@ int* p = (int*)calloc(10, sizeof(int));
 Memory leaks are caused when pointer references are lost and memory cannot
 be freed.
 
-The free() function is used to free allocated memory at pointer's  
+The `free()` function is used to free allocated memory at pointer's  
 memory address
 
 ``` C
@@ -232,7 +232,7 @@ The heap can store far larger data structures.
 
 # Arrays
 
-Arrays are inherently pointers with the address &arr[0].
+Arrays are inherently pointers with the address `&arr[0]`.
 
 Arrays are initialised with a fixed size which limits how many elements of a
 set type they can store in memory.
@@ -245,7 +245,7 @@ the memory functions.
 ## Multidimensional Arrays
 
 Arrays of arrays of arrays... can be represented as either a n dimensional
-pointer of n dimensional array such as int array\[M\]\[N\] (2D Array M x N).
+pointer of n dimensional array such as `int array[M][N]` (2D Array M x N).
 
 ### 1D array
 
@@ -301,17 +301,17 @@ d2->length = 10;
  
 # Files
 
-The type for C standard I/O files is FILE\*
+The type for C standard I/O files is `FILE*`
 
-To interact use fopen(), use fclose() when finished.
+To interact use `fopen()`, use `fclose()` when finished.
 
 ## Special File Types
 
-*   stdin :
+*   `stdin`
     -	Reading from the console
-*   stdout :
+*   `stdout `
     -	Writing to the console
-*   stderr :
+*   `stderr`
     -	Writing errors to the console
 
 ## Reading Files
@@ -330,28 +330,29 @@ do {
 ```
 
 If a file cannot be opened or does not exist, NULL is returned from
-fopen().
+`fopen()`
 
-errno returns the error number if file cannot be opened. perror() prints
-a readable error message to stderr with prefix.
+`errno` returns the error number if file cannot be opened. 
+
+`perror()` prints a readable error message to `stderr` with prefix.
 
 ``` C
 perror("<prefix>");	
 ```
 
-# Comma operator
+# Comma Operator
 
 Evaluates expressions in order give. 
 
 # Output Functions
 
-*   fprintf() :
+*   `fprintf()` 
     - Handles printing formatted string to output
-*   fputc() :
+*   `fputc()`
     - Handles printing char data to the output
-*   fputs() :
+*   `fputs()`
     - Handles printing string data to the ouput
-*   fwrite() :
+*   `fwrite()`
     - Handles printing binary data to the output
 
 ## Buffered Output
@@ -362,30 +363,30 @@ leaving memory.
 
 # Input Functions
 
-*   fgets() :
+*   `fgets()`
     - Reads a line from the specified stream and stores it into the string pointed 
 to by str. It stops when either (n-1) characters are read, the newline 
 character is read, or the end-of-file is reached, whichever comes first.
-*   fgetc() :
+*   `fgetc()`
     - Gets the next character (an unsigned char) from the specified stream and 
 advances the position indicator for the stream.
-*   fread() :
+*   `fread()`
     - Reads data from the given stream into the array pointed to, by ptr.
 
 ## Read Formatted Input
 
-*   fscanf() :
+*   `fscanf()`
     -	Reads input stream and returns typed pointers.
     -	Ignores whitespace until it reads format specifier.
 
-*   sscanf() : 
+*   `sscanf()` 
     - Reads string for format specifiers and returns typed pointer. 
 
 # Preprocessor
 
 Runs before the main compile and deals with # directives.
 
-*   #define 
+*   `#define` 
     - Performs textual substitution
     - Can store variables to textually expanded via substitutions
 
@@ -393,7 +394,7 @@ Runs before the main compile and deals with # directives.
 #define CUBE(X) ((X) * (X) * (X)) 
 ```
 
-*   #include 
+*   `#include` 
     - Includes library/header/etc
 
 ## Conditional Compilation
@@ -494,11 +495,11 @@ int main(int argc, char** argv) {
 
 # Logical Evaluation
 
-The logical or || and logical and && operations evaluate until they are
+The logical or `||` and logical and `&&` operations evaluate until they are
 guaranteed to be true (in the case of or) or guaranteed to be false
 (in the case of and).
 
-## Logical Or ||
+## Logical Or `||`
 
 ``` C
 bool f1() {
@@ -530,7 +531,7 @@ The code above evaultes to.
 > main
 ```
 
-## Logical And &&
+## Logical And `&&`
 
 ``` C
 bool f1() {
@@ -565,7 +566,7 @@ The code above evaultes to.
 # Compilation & Linking
 
 ``` mermaid 
-flowchart TD;
+flowchart LR;
     A[Preprocessor] --> B[.c];
     B --> C[Compiler];
     C --> D[.s];
@@ -575,8 +576,6 @@ flowchart TD;
     G --> H[Binary];
     H --> I[.exe];
 ```
-
-Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
 
 GCC drives the compilation process that utilises numerous
 other programs to create the final binary executable.
@@ -612,7 +611,7 @@ Significanlty larger file size as the libraries must be included.
 
 Typically called libname.a
 
-Can be created using the ar command.
+Can be created using the `ar` command.
 
 ``` dos
 $are rcs libname.a object-files
@@ -625,21 +624,21 @@ linked through a file path.
 
 ### Dynamic Libraries
 
-Typically called libname.so[.version-number]
+Typically called `libname.so[.version-number]`
 
-Use gcc -shared:
+Use `gcc -shared`:
 
 ``` dos
 $gcc -shared -fPIC -o libname.so object-files
 ```
 
-The -fPIC flag build source files as position independent and can be relocated.
+The `-fPIC` flag build source files as position independent and can be relocated.
 
--L flag is the directory where the library is contained
--l flag is the library file name
+`-L` flag is the directory where the library is contained
+`-l` flag is the library file name
 
 The dynamic linker needs to know where to find shared libraries. The paths
-are found in LD_LIBRARY_PATH environment variable.
+are found in `LD_LIBRARY_PATH` environment variable.
 
 ``` dos
 $echo $LD_LIBRARY_PATH
@@ -724,7 +723,7 @@ Calling conventions differ based on the architecture/OS.
 
 Examine a program whilst running.
 
-Requires debugging symbols to be included using -g flags
+Requires debugging symbols to be included using `-g` flags
 
 ``` dos
 gdb program-executable-name
@@ -736,15 +735,15 @@ break filename.c:23
 ```
 
 Commands
-*   run: Start the program
-*   break: Set a breakpoint at function or line in file
-*   backtrace: Show the function call stack
-*   up/down: Move up and down on the stack
-*   next: Steps over next line and stops
-*   step: Steps into next line and stops
-*   continue: Run until next breakpoint
-*   list: Show the code aroung the stopping point
-*   print: Print value of variable / expressions
+*   `run`: Start the program
+*   `break`: Set a breakpoint at function or line in file
+*   `backtrace`: Show the function call stack
+*   `up`/`down`: Move up and down on the stack
+*   `next`: Steps over next line and stops
+*   `step`: Steps into next line and stops
+*   `continue`: Run until next breakpoint
+*   `list`: Show the code aroung the stopping point
+*   `print`: Print value of variable / expressions
 
 # Operating Systems
 
@@ -759,17 +758,15 @@ implements
 
 ## Linux Architecture
 
-| User Applications |
-|   | GNU C Lib C   |
-------------------------
-| System Call Interace |
-------------------------
-|   Kernel  |
-----------------------------------------
-|   Architecture Dependent Kernel Code |
-----------------------------------------
-|   Hardware Platform	|
--------------------------
+``` mermaid
+flowchart TD;
+    A[User Applications] --> B[GNU C Lib C];
+    A --> C[System Call Interace];
+    B --> C;
+    C --> D[Kernel];
+    D --> E[Architecture Dependent Kernel Code];
+    E --> F[Hardware Platform];
+```
 
 ### Linux Kernel
 
@@ -865,10 +862,10 @@ Read commands:
 *   From stdin (interactive use)
 *   From script (.sh)
 
-Script files require both the 'r' and 'x' permissions to run.
+Script files require both the `'r'` and `'x'` permissions to run.
 
-*   'r' allows the shell to read the program in the file.
-*   'x' allows the program to run executable.
+*   `'r'` allows the shell to read the program in the file.
+*   `'x'` allows the program to run executable.
 
 ## Internal / External Commands
 
@@ -923,14 +920,14 @@ neighbouring variable is overwritten with the buffer data.
 
 ## Stack Walking
 
-`printf` copies the values stored after the char\* from the stack and 
+`printf` copies the values stored after the `char*` from the stack and 
 print them to stdout.
 
 ``` C
 printf(buffer);
 ```
 
-The danger here is that if we pass a buffer char\* that contains format 
+The danger here is that if we pass a buffer `char*` that contains format 
 specifiers we can walk the stack and manipulate it. 
 
 Format specifiers such as:
