@@ -566,14 +566,14 @@ The code above evaultes to.
 
 ``` mermaid 
 graph Compilation;
-    Preprocessor --> .c;
-    .c --> Compiler;
-    Compiler --> .s;
-    .s --> Assembler;
-    Assembler --> .o;
-    .o --> Linker;
-    Linker --> Binary;
-    Binary --> .exe;
+    Preprocessor-->.c;
+    .c -->Compiler;
+    Compiler-->.s;
+    .s-->Assembler;
+    Assembler-->.o;
+    .o-->Linker;
+    Linker-->Binary;
+    Binary-->.exe;
 ```
 
 Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
