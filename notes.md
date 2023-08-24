@@ -1,16 +1,9 @@
 # Computing Systems Principles And Programming (CSSE2310)
-## Initialising C programs
+## Table of Contents
 
-Body of code entry point from shell.
-
-``` C
-int main() {
-    return 1;
-}
-```
-
+# Basic Linux C Features 
 ## Building C programs
-```dos
+``` dos
 $ gcc -o <file name> <file name.c>
 
 $ ./<file name>
@@ -94,7 +87,7 @@ functions contained within other files.
     - array of char (`char str[] = "hello";`)
     - strings require mempory for one extra character than given
 
-## Parameters of main
+## Parameters of Main
 
 Main is the entry point to a program. It contains 3 parameters that describe 
 an array of strings that are input from the command line.
@@ -461,13 +454,21 @@ on the instance.
 
 Event driven tasks make use of function pointers.
 
-Function pointer are typed as follows.
+Function pointers are typed as follows.
 
 ``` C
-return (*varname) (args);
+<return type> (*<function name>) (<arg1>, <arg2>, ...);
+```
 
+E.g.
+
+``` C
 int (*sum) (int, int);
+```
 
+Or
+
+```
 typedef int (*Sum) (int, int);
 ```
 
@@ -614,7 +615,7 @@ Typically called libname.a
 Can be created using the `ar` command.
 
 ``` dos
-$are rcs libname.a object-files
+$ ar rcs libname.a object-files
 ```
 
 ## Dynamic Linking
@@ -629,7 +630,7 @@ Typically called `libname.so[.version-number]`
 Use `gcc -shared`:
 
 ``` dos
-$gcc -shared -fPIC -o libname.so object-files
+$ gcc -shared -fPIC -o libname.so object-files
 ```
 
 The `-fPIC` flag build source files as position independent and can be relocated.
@@ -641,9 +642,9 @@ The dynamic linker needs to know where to find shared libraries. The paths
 are found in `LD_LIBRARY_PATH` environment variable.
 
 ``` dos
-$echo $LD_LIBRARY_PATH
+$ echo $LD_LIBRARY_PATH
 
-$export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
+$ export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
 ```
 
 # Process Memory Map
@@ -664,15 +665,15 @@ $export LD_LIBRARY_PATH=/filepath/lib:`libraryname`
 A program's memory map can be analysed using
 
 ``` dos
-$ps -U<user>
+$ ps -U<user>
 
-$pmap -x <process id>
+$ pmap -x <process id>
 ```
 
 Or
     
 ``` dos
-$more /proc/<process id>/maps
+$ more /proc/<process id>/maps
 ```
 
 # Storage Classes
@@ -693,7 +694,7 @@ current file. Dependeny is handles when linking.
 
 # Stack
 
-FIFO queue.
+LIFO queue.
 
 Function Calls:
 *   push (add to top)
@@ -726,12 +727,10 @@ Examine a program whilst running.
 Requires debugging symbols to be included using `-g` flags
 
 ``` dos
-gdb program-executable-name
-
-run [cmd-line-args]
-
-break function-name
-break filename.c:23 
+$ gdb <program-executable-name>
+$ break <function-name>
+$ break <filename.c>:23 
+$ run <cmd-line-args>
 ```
 
 Commands
