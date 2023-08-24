@@ -565,14 +565,15 @@ The code above evaultes to.
 # Compilation & Linking
 
 ``` mermaid 
-Preprocessor --> .c
-.c --> Compiler
-Compiler --> .s
-.s --> Assembler
-Assembler --> .o
-.o --> Linker
-Linker --> Binary
-Binary --> .exe
+graph Compilation;
+    Preprocessor --> .c;
+    .c --> Compiler;
+    Compiler --> .s;
+    .s --> Assembler;
+    Assembler --> .o;
+    .o --> Linker;
+    Linker --> Binary;
+    Binary --> .exe;
 ```
 
 Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
