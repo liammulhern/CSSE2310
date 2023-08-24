@@ -476,11 +476,11 @@ Function pointers can be stored in other data structures such as arrays.
 
 Returns the size of the typed variable at compilation time in bytes.
 
-*   sizeof(char) == 1
-*   sizeof(int) == 4
-*   sizeof(short) == 2
-*   sizeof(long) == 8
-*   sizeof(char\*) == 8
+*   `sizeof(char) == 1`
+*   `sizeof(int) == 4`
+*   `sizeof(short) == 2`
+*   `sizeof(long) == 8`
+*   `sizeof(char\*) == 8`
 
 ``` C
 int main(int argc, char** argv) {
@@ -526,8 +526,8 @@ int main() {
 The code above evaultes to.
 
 ``` dos
-f1
-main
+> f1
+> main
 ```
 
 ## Logical And &&
@@ -558,11 +558,25 @@ int main() {
 The code above evaultes to.
 
 ``` dos
-f1
-f2
+> f1
+> f2
 ```
 
 # Compilation & Linking
+
+``` flow
+st=>start: Preprocessor
+op1=>operation: .c
+op2=>operation: Compiler
+op3=>operation: .s
+op4=>operation: Assembler
+op5=>operation: .o
+op6=>operation: Linker
+op7=>operation: Binary
+e=>end: .exe
+
+st->op1->op2->op3->op4->op5->op6->op7->e
+```
 
 Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
 
