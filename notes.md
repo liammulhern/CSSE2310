@@ -67,7 +67,7 @@
   - [Multitasking](#multitasking)
   - [Standardised Interfaces](#standardised-interfaces)
   - [Linux Architecture](#linux-architecture)
-    - [Linux Kernel](#linux-kernel)
+  - [Linux Kernel](#linux-kernel)
   - [User vs Kernel Space](#user-vs-kernel-space)
     - [User Mode (Unprivileged)](#user-mode-unprivileged)
     - [Kernel Mode (Full Privilege)](#kernel-mode-full-privilege)
@@ -851,7 +851,6 @@ Arbitrates sahred access according to defined policies
 Programs can build and run on a variety of System. The POSIX (Portiable Operating System Interface) standard implements.
 
 ## Linux Architecture
-
 ``` mermaid
 flowchart TD;
     A[User Applications] --> B[GNU C Lib C];
@@ -862,10 +861,9 @@ flowchart TD;
     E --> F[Hardware Platform];
 ```
 
-### Linux Kernel
-
-```
-flowchart LR;
+## Linux Kernel
+``` mermaid
+flowchart LR
     subgraph 1["User Space"]
         A[Applications, Tools]
     end
@@ -899,15 +897,7 @@ flowchart LR;
         end
     end
 ```
-
-*   Process Management -> Scheduler -> HW CPU
-*   Memory Management -> HW RAM
-*   File Systems -> Types -> Block Devices -> HW HDD, CD, Flash, etc
-*   Device Drivers -> Terminal equipment
-*   Network -> Network Protocols -> Drivers -> HW Adapters 
-
 ## User vs Kernel Space
-
 ### User Mode (Unprivileged)
 
 Handles regular CPU instructions like load, store, arithmetic.
@@ -927,8 +917,29 @@ Access anywhere in memory or IO address registers.
 Operate kernel in supervised space through the hypervisor 
 which interacts with hardware.
 
-## Entering Kernel Mode As User
+``` mermaid
+flowchart TD
+    subgraph 1[Virtual Machine]
+        A["Apps (User Mode)"]
+        C["File System Image"]
+        D["OS Kernel (Kernel Mode)"]
 
+        A <--> D
+    end
+    subgraph 2[Virtual Machine]
+        E["Apps (User Mode)"]
+        G["File System Image"]
+        H["OS Kernel (Kernel Mode)"]
+
+        E <--> H
+    end
+    3[Hypervisor]
+    4[Hardware]
+    1 & 2 --> 3
+    3 --> 4
+```
+
+## Entering Kernel Mode As User
 ### System Calls
 
 Deliberately triggerd by user code via special op codes.
