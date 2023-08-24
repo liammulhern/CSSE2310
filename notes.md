@@ -565,15 +565,15 @@ The code above evaultes to.
 # Compilation & Linking
 
 ``` mermaid 
-graph Compilation;
-    Preprocessor-->.c;
-    .c -->Compiler;
-    Compiler-->.s;
-    .s-->Assembler;
-    Assembler-->.o;
-    .o-->Linker;
-    Linker-->Binary;
-    Binary-->.exe;
+flowchart TD;
+    A[Preprocessor] --> B[.c];
+    B --> C[Compiler];
+    C --> D[.s];
+    D --> E[Assembler];
+    E --> F[.o];
+    F --> G[Linker];
+    G --> H[Binary];
+    H --> I[.exe];
 ```
 
 Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
