@@ -564,18 +564,15 @@ The code above evaultes to.
 
 # Compilation & Linking
 
-``` flow
-st=>start: Preprocessor
-op1=>operation: .c
-op2=>operation: Compiler
-op3=>operation: .s
-op4=>operation: Assembler
-op5=>operation: .o
-op6=>operation: Linker
-op7=>operation: Binary
-e=>end: .exe
-
-st->op1->op2->op3->op4->op5->op6->op7->e
+``` mermaid 
+Preprocessor --> .c
+.c --> Compiler
+Compiler --> .s
+.s --> Assembler
+Assembler --> .o
+.o --> Linker
+Linker --> Binary
+Binary --> .exe
 ```
 
 Preprocessor -> (.c) -> Compiler -> (.s) -> Assembler -> (.o) -> Linker 
