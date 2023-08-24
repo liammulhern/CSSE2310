@@ -864,6 +864,42 @@ flowchart TD;
 
 ### Linux Kernel
 
+```
+flowchart LR;
+    subgraph 1["User Space"]
+        A[Applications, Tools]
+    end
+    1 --> 2
+    subgraph 2[Linux Kernel]
+        direction LR
+        subgraph 3[Components]
+            B[Process Management]
+            C[Memory Management]
+            D[File Systems]
+            E[Device Drivers]
+            F[Network]
+        end
+        subgraph 4[Software Support]
+            B -->|Multitasking| G["Scheduler, Architecture Specific Code"]
+            C -->|Virtual Memory| H[Memory Manager]
+            D -->|File Directories| I[File System Types] --> J
+            E -->|Device Access, Terminals| K[Character Devices]
+            F -->|Network Functionality| L[Network Protocols] --> M
+            subgraph 5[Hardware Support]
+                J[Block Devices]
+                M[Network Drivers]
+            end
+        end
+        subgraph 6[Hardware]
+            G <--> N[CPU]
+            H <--> O[RAM]
+            J <--> P[HDD, SSD, CD]
+            M <--> R[Network Adapted]
+            K <--> Q[Terminal Equipment]
+        end
+    end
+```
+
 *   Process Management -> Scheduler -> HW CPU
 *   Memory Management -> HW RAM
 *   File Systems -> Types -> Block Devices -> HW HDD, CD, Flash, etc
