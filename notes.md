@@ -96,17 +96,18 @@ functions contained within other files.
 
 ## Parameters of main
 
-Main is the entry point to a program. It contains 2 parameters that describe 
+Main is the entry point to a program. It contains 3 parameters that describe 
 an array of strings that are input from the command line.
 
 ``` C
-int main(int argc, char** argv) {
+int main(int argc, char** argv, char** envp) {
     ...
 }
 ```
 
 *   argc : The number of strings in the array.
 *   argv : The array itself.
+*   envp : The environment varaibles of the user system.
 
 The argv array is constructed as follows.
 
@@ -732,3 +733,203 @@ Commands
 *   continue: Run until next breakpoint
 *   list: Show the code aroung the stopping point
 *   print: Print value of variable / expressions
+
+# Operating Systems
+
+## 
+
+## Standardised Interfaces
+
+Programs can build and run on a variety of Systems
+
+The POSIX (Portiable Operating System Interface) standard
+implements 
+
+## Linux Architecture
+
+| User Applications |
+|   | GNU C Lib C   |
+------------------------
+| System Call Interace |
+------------------------
+|   Kernel  |
+----------------------------------------
+|   Architecture Dependent Kernel Code |
+----------------------------------------
+|   Hardware Platform	|
+-------------------------
+
+### Linux Kernel
+
+*   Process Management -> Scheduler -> HW CPU
+*   Memory Management -> HW RAM
+*   File Systems -> Types -> Block Devices -> HW HDD, CD, Flash, etc
+*   Device Drivers -> Terminal equipment
+*   Network -> Network Protocols -> Drivers -> HW Adapters 
+
+## User vs Kernel Space
+
+### "User" mode (Unprivileged)
+
+Handles regular CPU instructions like load, store, arithmetic.
+
+Can't access hardware directly.
+
+All memory is access and protected by the memory management uninitialised,
+
+### "Kernel" mode (Full privilege)
+
+Modify CPU state - interupts, modify MMU config.
+
+Access anywhere in memory or IO address registers.
+
+## Virtualisation
+
+Operate kernel in supervised space through the hypervisor 
+which interacts with hardware.
+
+## Entering Kernel Mode
+
+### System Calls
+
+Deliberately triggerd by user code via special op codes.
+
+Visible bcause the user program asked for them.
+
+### Exceptions
+
+Result from program actions (e.g Illegal operations)
+
+Visible because the user code wakes up in a handler.
+
+Not related to language based software exceptions but can be 
+triggered.
+
+### Interupts
+
+Hardware interupts via physical interfaces in hardware.
+
+CPU timer interupts triggers process scheduling.
+
+Not directly visible to user programs.
+
+## Observing System Calls
+
+The `strace` command allows us to observe the system calls 
+made by a program / process.
+
+``` dos
+$ strace <program name> <trace name>.out
+```
+
+### Buffers
+
+C operates a file buffer that reads a block of memory to a
+buffer to limit the number of system calls made when reading 
+memory. 
+
+Buffering takes place at the C library level but whilst 
+data is in a buffer before a write it is volatile 
+as it not stored phyiscally.
+
+Making a buffer too large means lots of memory is used to 
+temporarily store files and can limit how many files are open.
+
+# Shells
+
+Application programs run as a root or as a regular user.
+
+Are the interface between the used and the kernel.
+
+Provide scripting capabilities.
+
+Are often text based.
+
+## Startup
+
+Read startup files (e.g .bashrc)
+
+Read commands:
+*   From stdin (interactive use)
+*   From script (.sh)
+
+Script files require both the 'r' and 'x' permissions to run.
+
+*   'r' allows the shell to read the program in the file.
+*   'x' allows the program to run executable.
+
+## Internal / External Commands
+
+Commands are built into the shell (e.g. cd, alias, type, ...)
+
+Other commands are executable programs on the filesytem (e.g. ls, 
+gcc, vim)
+
+### Useful Commands
+
+*   `type` shows if a command is built in.
+*   `which` shows where an external command is located.
+*   `echo $PATH` shows the environment variable containing
+the the list of directories to look for an executable program in.
+
+## Shell Variables vs Environment Variables
+
+Are always strings (Programs can interpret these as other types)
+
+Are either local "Shell Variables" or "Environment Variables"
+
+*   Shell varaibles are scoped to the current shell process.
+*   Environment variables are scoped to the user system and passed to 
+the child process.
+
+### Setting Variables
+
+Setting shell variables:
+``` dos
+$ VAR=8
+```
+
+Setting environment variables:
+``` dos
+$ export PATH=$PATH:~/...
+```
+
+## Special Characters
+
+*   `*` expands all files in directory in the command line.
+*   `?` expands only 1 character for files.
+*   `&` run a command in background.
+*   `;` run commands in sequence.
+
+# Secure and Defensive Programming
+
+## Buffer Overflow
+
+When space is allocated on the stack, varaibles are located nearby. 
+When an array is allocated and data is written past the end, the
+neighbouring variable is overwritten with the buffer data.
+
+## Stack Walking
+
+`printf` copies the values stored after the char\* from the stack and 
+print them to stdout.
+
+``` C
+printf(buffer);
+```
+
+The danger here is that if we pass a buffer char\* that contains format 
+specifiers we can walk the stack and manipulate it. 
+
+Format specifiers such as:
+
+*   `%x` and `%1x` print hex and can be used to peek at the stack
+*   `%N$s` prints the Nth argument as a string
+*   `%n` write the number of characters output so far, to the positional
+argument which can allow WRITING TO THE STACK!
+
+DON'T write buffers directly to `printf` instead use:
+
+``` C
+printf("%s", buffer);
+```
