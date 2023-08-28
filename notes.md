@@ -941,3 +941,120 @@ DON'T write buffers directly to `printf` instead use:
 ``` C
 printf("%s", buffer);
 ```
+
+# Processes
+
+Instance of a program in execution. 
+
+They are an abstraction of the computer where:
+*   Interactions are via systems calls to the kernel.
+*   Other processes' resources are not visible.
+*   Processes' memory is not generally accessible.
+*   Other processes' activity should not influence the instance.
+
+Seperates resources so each process can have its own table of resources.
+
+Seperates memory so virtual memory can be allocated to processes.
+
+Seperates CPU activity whenever the CPU switches to kernel mode and 
+saves registers until they are restored when the kernel exits.
+
+## Process States
+
+### Running 
+The process is currently executing on the CPU.
+
+### Ready
+The process could run but is waiting (Something else is using the CPU).
+
+### Blocked
+The process is not ready because it is waiting for something (IO Operations).
+
+### Ended
+Process has exited or terminated and needs to be cleaned up.
+
+# Unix Processes
+
+Every process has a unique process ID (PID) with C type `pid_t`
+
+Can retrieve a process ID using
+
+``` C
+pid_t getpid(void);
+```
+
+And retrieve a parent ID using
+
+``` C
+pid_t getppid();
+```
+
+## Process Tree
+
+All processes in a Unix system have a parent (i.e topologically a tree).
+
+*   `init` (PID 1) is the first userspace process created after the kernel 
+finishes booting.
+*   `$ ps -e` shows all processes running in the system 
+*   `$ pstree` shows the tree structure
+
+PID 0 is the kernel itself `init` and `kthreadd` have the kernel space as
+parent.
+
+All command line arguments are shown in the process list so arguments are 
+not secure.
+
+## Creating Processes
+
+`fork()` Asks the kernel to create a new (child) process.
+
+*   Called from one process (the parent)
+*   Returns two near identical processes (the parent and the new child)
+
+Parent `fork()` returns a value as the PID that is not 0.
+
+Child `fork()` returns 0.
+
+Child has an exact, but distinct copy of the parent's memory space. (i.e the
+stack, local variables, files, heap, etc are all copied to the child)
+
+``` C
+pid_t pid = fork();
+
+if (pid) {
+    ... Parent
+} else {
+    ... Child 
+}
+```
+
+The precedence of the processes running is determined by the kernel scheduler.
+Order **CANNOT** be indirectly guaranteed. Priority can be assigned to influence
+the scheduler but must be explicitly stated.
+
+Processes start at the same line of execution as their parent process.
+
+### Fork Process Trees
+
+
+``` C
+void main() {
+    printf("1");
+    fork();
+    printf("2");
+    fork();
+    print(3);
+    return 0;
+}
+```
+
+``` mermaid
+flowchart LR;
+    A[1];
+    A --> B[2];
+    A --> C[2];
+    B --> D[3];
+    B --> E[3];
+    C --> F[3];
+    C --> G[3];
+```
