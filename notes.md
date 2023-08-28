@@ -1036,7 +1036,6 @@ Processes start at the same line of execution as their parent process.
 
 ### Fork Process Trees
 
-
 ``` C
 void main() {
     printf("1");
@@ -1058,3 +1057,72 @@ flowchart LR;
     C --> F[3];
     C --> G[3];
 ```
+
+## Default Buffering
+
+### `stdout`
+
+*   Line buffered when `stdout` is a terminal (i.e requires `\n` to send)
+*   Block buffered when redirected to anything else (file, pipe)
+
+### `stderr`
+
+*   Unbuffered all characters written immediately
+
+As the child fork inherits the buffers with the previous buffered output contained, 
+buffers should be flushed before creating child forks.
+
+``` C
+fflush(FILE*)
+```
+
+Buffering defaults can be changed using `setbuf()` and `setvbuf()`
+
+### Output Redirection
+
+Output from a program can be redirected to another. 
+
+E.g redirect of ls to file ls.out
+
+```
+$ ls > ls.out
+```
+
+Output from forked children changes depending on where the buffer is 
+outputting to.
+
+## Child Workers
+
+Parallel process allow multiple child process to do work seperately to the 
+parent.
+
+## Ending Processes
+
+`exit()` is a system call which ends the current process, flushes 
+any open file streams, and hooks are executed.
+
+`_exit()` ends the current process but does not flush buffers.
+
+## Zombies
+
+The system keeps are record of what happens to a process incase the parent
+requires information (i.e exit status/signal).
+
+The memory and resources are released but part of the process still hangs 
+around. A process in this state is a zombie.
+
+When a process' parent asks about the child's termination the zombie will 
+be removed. 
+
+### Reaping
+
+To reap, the parent calls `wait()` and wait blocks until:
+*   A current child process becomes (or already was) a zombie.
+*   The parent has no child processes
+
+The `wait()` command syncronises the parent with the child instances so that
+parent can exit after all the child process have exited.
+
+### Adopting
+
+
