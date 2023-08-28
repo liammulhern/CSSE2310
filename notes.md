@@ -1,5 +1,94 @@
-# Computing Systems Principles And Programming (CSSE2310)
+# CSSE2310 : Computing Systems Principles And Programming
 ## Table of Contents
+
+- [CSSE2310 : Computing Systems Principles And Programming](#csse2310--computing-systems-principles-and-programming)
+  - [Table of Contents](#table-of-contents)
+- [Basic Linux C Features](#basic-linux-c-features)
+  - [Building C programs](#building-c-programs)
+  - [GNU manual (man) command](#gnu-manual-man-command)
+- [Basic C Programming](#basic-c-programming)
+  - [Printf](#printf)
+  - [Header Files](#header-files)
+  - [Types](#types)
+  - [Parameters of Main](#parameters-of-main)
+- [Pointers](#pointers)
+  - [NULL Pointers](#null-pointers)
+  - [Generic Pointer](#generic-pointer)
+- [Parameter Passing to Functions](#parameter-passing-to-functions)
+- [Memory](#memory)
+  - [Memory Allocation](#memory-allocation)
+  - [Memory Free](#memory-free)
+  - [Memory Reallocation](#memory-reallocation)
+  - [Allocating blocks of memory](#allocating-blocks-of-memory)
+  - [Memory Location](#memory-location)
+- [Arrays](#arrays)
+  - [Dynamic Arrays](#dynamic-arrays)
+  - [Multidimensional Arrays](#multidimensional-arrays)
+    - [1D array](#1d-array)
+    - [2D array](#2d-array)
+- [Structures (Structs)](#structures-structs)
+- [Files](#files)
+  - [Special File Types](#special-file-types)
+  - [Reading Files](#reading-files)
+- [Comma Operator](#comma-operator)
+- [Output Functions](#output-functions)
+  - [Buffered Output](#buffered-output)
+- [Input Functions](#input-functions)
+  - [Read Formatted Input](#read-formatted-input)
+- [Preprocessor](#preprocessor)
+  - [Conditional Compilation](#conditional-compilation)
+- [Enums](#enums)
+- [Switch](#switch)
+- [Break](#break)
+- [Continue](#continue)
+- [Types](#types-1)
+- [Function Pointers](#function-pointers)
+- [Sizeof](#sizeof)
+- [Logical Evaluation](#logical-evaluation)
+  - [Logical Or `||`](#logical-or-)
+  - [Logical And `&&`](#logical-and-)
+- [Compilation \& Linking](#compilation--linking)
+  - [Object Files (ELF)](#object-files-elf)
+- [Linking](#linking)
+  - [Static Linking](#static-linking)
+    - [Static Libraries](#static-libraries)
+  - [Dynamic Linking](#dynamic-linking)
+    - [Dynamic Libraries](#dynamic-libraries)
+- [Process Memory Map](#process-memory-map)
+- [Storage Classes](#storage-classes)
+  - [Static](#static)
+  - [Extern](#extern)
+- [Stack](#stack)
+  - [Stack Frame](#stack-frame)
+- [Function Calling Conventions](#function-calling-conventions)
+- [Debugging](#debugging)
+- [Operating Systems](#operating-systems)
+  - [Abstraction](#abstraction)
+  - [Multitasking](#multitasking)
+  - [Standardised Interfaces](#standardised-interfaces)
+  - [Linux Architecture](#linux-architecture)
+  - [Linux Kernel](#linux-kernel)
+  - [User vs Kernel Space](#user-vs-kernel-space)
+    - [User Mode (Unprivileged)](#user-mode-unprivileged)
+    - [Kernel Mode (Full Privilege)](#kernel-mode-full-privilege)
+  - [Virtualisation](#virtualisation)
+  - [Entering Kernel Mode As User](#entering-kernel-mode-as-user)
+    - [System Calls](#system-calls)
+    - [Exceptions](#exceptions)
+    - [Interupts](#interupts)
+  - [Observing System Calls](#observing-system-calls)
+    - [Buffers](#buffers)
+- [Shells](#shells)
+  - [Startup](#startup)
+  - [Internal / External Commands](#internal--external-commands)
+    - [Useful Commands](#useful-commands)
+  - [Shell Variables vs Environment Variables](#shell-variables-vs-environment-variables)
+    - [Setting Variables](#setting-variables)
+  - [Special Characters](#special-characters)
+- [Secure and Defensive Programming](#secure-and-defensive-programming)
+  - [Buffer Overflow](#buffer-overflow)
+  - [Stack Walking](#stack-walking)
+
 
 # Basic Linux C Features 
 ## Building C programs
@@ -746,17 +835,22 @@ Commands
 
 # Operating Systems
 
-## 
+## Abstraction
+
+Provide abstraction from hardware interface to user interface.
+Allows programs to ignor low level details by providing interfaces.
+
+## Multitasking
+
+Allows resources to be shared among multiple processes/tasks/users/etc
+
+Arbitrates sahred access according to defined policies
 
 ## Standardised Interfaces
 
-Programs can build and run on a variety of Systems
-
-The POSIX (Portiable Operating System Interface) standard
-implements 
+Programs can build and run on a variety of System. The POSIX (Portiable Operating System Interface) standard implements.
 
 ## Linux Architecture
-
 ``` mermaid
 flowchart TD;
     A[User Applications] --> B[GNU C Lib C];
@@ -767,17 +861,44 @@ flowchart TD;
     E --> F[Hardware Platform];
 ```
 
-### Linux Kernel
-
-*   Process Management -> Scheduler -> HW CPU
-*   Memory Management -> HW RAM
-*   File Systems -> Types -> Block Devices -> HW HDD, CD, Flash, etc
-*   Device Drivers -> Terminal equipment
-*   Network -> Network Protocols -> Drivers -> HW Adapters 
-
+## Linux Kernel
+``` mermaid
+flowchart LR
+    subgraph 1["User Space"]
+        A[Applications, Tools]
+    end
+    1 --> 2
+    subgraph 2[Linux Kernel]
+        direction LR
+        subgraph 3[Components]
+            B[Process Management]
+            C[Memory Management]
+            D[File Systems]
+            E[Device Drivers]
+            F[Network]
+        end
+        subgraph 4[Software Support]
+            B -->|Multitasking| G["Scheduler, Architecture Specific Code"]
+            C -->|Virtual Memory| H[Memory Manager]
+            D -->|File Directories| I[File System Types] --> J
+            E -->|Device Access, Terminals| K[Character Devices]
+            F -->|Network Functionality| L[Network Protocols] --> M
+            subgraph 5[Hardware Support]
+                J[Block Devices]
+                M[Network Drivers]
+            end
+        end
+        subgraph 6[Hardware]
+            G <--> N[CPU]
+            H <--> O[RAM]
+            J <--> P[HDD, SSD, CD]
+            M <--> R[Network Adapted]
+            K <--> Q[Terminal Equipment]
+        end
+    end
+```
 ## User vs Kernel Space
-
-### "User" mode (Unprivileged)
+### User Mode (Unprivileged)
 
 Handles regular CPU instructions like load, store, arithmetic.
 
@@ -785,7 +906,7 @@ Can't access hardware directly.
 
 All memory is access and protected by the memory management uninitialised,
 
-### "Kernel" mode (Full privilege)
+### Kernel Mode (Full Privilege)
 
 Modify CPU state - interupts, modify MMU config.
 
@@ -796,8 +917,29 @@ Access anywhere in memory or IO address registers.
 Operate kernel in supervised space through the hypervisor 
 which interacts with hardware.
 
-## Entering Kernel Mode
+``` mermaid
+flowchart TD
+    subgraph 1[Virtual Machine]
+        A["Apps (User Mode)"]
+        C["File System Image"]
+        D["OS Kernel (Kernel Mode)"]
 
+        A <--> D
+    end
+    subgraph 2[Virtual Machine]
+        E["Apps (User Mode)"]
+        G["File System Image"]
+        H["OS Kernel (Kernel Mode)"]
+
+        E <--> H
+    end
+    3[Hypervisor]
+    4[Hardware]
+    1 & 2 --> 3
+    3 --> 4
+```
+
+## Entering Kernel Mode As User
 ### System Calls
 
 Deliberately triggerd by user code via special op codes.
@@ -868,9 +1010,7 @@ Script files require both the `'r'` and `'x'` permissions to run.
 
 ## Internal / External Commands
 
-Commands are built into the shell (e.g. cd, alias, type, ...)
-
-Other commands are executable programs on the filesytem (e.g. ls, 
+Commands are built into the shell (e.g. cd, alias, type, ...). Other commands are executable programs on the filesytem (e.g. ls, 
 gcc, vim)
 
 ### Useful Commands
@@ -882,9 +1022,7 @@ the the list of directories to look for an executable program in.
 
 ## Shell Variables vs Environment Variables
 
-Are always strings (Programs can interpret these as other types)
-
-Are either local "Shell Variables" or "Environment Variables"
+Are always strings (Programs can interpret these as other types). Are either local "Shell Variables" or "Environment Variables".
 
 *   Shell varaibles are scoped to the current shell process.
 *   Environment variables are scoped to the user system and passed to 
