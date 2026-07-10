@@ -1,0 +1,153 @@
+set logging overwrite on
+set logging on
+
+break bomb.c:63
+break bomb.c:66
+break phases.c:307
+break phases.c:312
+break phases.c:317
+break phases.c:327
+break phases.c:332
+break phases.c:336
+break phases.c:341
+break phases.c:353
+break phases.c:358
+break phases.c:368
+break phases.c:373
+break phases.c:377
+break phases.c:382
+break phases.c:395
+break phases.c:403
+break phases.c:437
+break phases.c:442
+break phases.c:450
+break phases.c:455
+break phases.c:464
+
+break *0x401fa3
+commands
+printf "==========================\n"
+printf "RESETTING SECRET WORD\n"
+printf "==========================\n"
+cont
+end
+
+break *0x4020f9
+commands
+printf "==========================\n"
+printf "Phase is %c\n", $al
+printf "==========================\n"
+cont
+end
+
+break *0x402249
+commands
+printf "==========================\n"
+printf "About to add space char\n"
+printf "==========================\n"
+cont
+end
+
+break *0x4024bd
+commands
+printf "==========================\n"
+printf "Formatted int is [%s]\n", $r10
+printf "==========================\n"
+cont
+end
+
+break *0x4024c4
+commands
+printf "==========================\n"
+printf "Formatted with phase int is [%s]\n", $rax
+printf "==========================\n"
+cont
+end
+
+break *0x4025a0
+commands
+printf "==========================\n"
+printf "Formatted char is [%c]\n", $al
+printf "==========================\n"
+cont
+end
+
+break *0x40265f
+commands
+printf "==========================\n"
+printf "About to read secret message as string\n"
+printf "Secret message [%s]\n", $rax
+x/s $rax
+printf "==========================\n"
+end
+
+break *0x402675
+commands
+printf "==========================\n"
+printf "About to read secret message length as int\n"
+printf "String length [%d]\n", $rax
+p $rax
+printf "==========================\n"
+end
+
+break *0x4026a3
+commands
+printf "==========================\n"
+printf "About to read secret message formatted string copy\n"
+printf "Formatted string copy message [%s]\n", $rax
+x/s $rax
+printf "==========================\n"
+end
+
+break *0x4026ab
+commands
+printf "==========================\n"
+printf "About to read secret message formatted string copy length\n"
+printf "Formatted string copy length [%d]\n", $rax
+p $rax
+printf "==========================\n"
+end
+
+break *0x40279e
+commands
+printf "==========================\n"
+printf "==========================\n"
+printf "==========================\n"
+printf "\n"
+printf "CHECKING SECRET STRING MATCH!\n"
+printf "\n"
+printf "==========================\n"
+printf "==========================\n"
+printf "==========================\n"
+end
+
+break *0x40348f
+commands
+printf "==========================\n"
+printf "About to read secret string\n"
+printf "Secret input is [%s]\n", $r10
+x/s $r10
+printf "==========================\n"
+end
+
+break *0x4034ae
+commands
+printf "==========================\n"
+printf "Formatted packet is [%s]\n", $rax
+x/s $rax
+printf "==========================\n"
+end
+
+break *0x40350b
+commands
+printf "==========================\n"
+printf "DB status: %s", $rax
+printf "==========================\n"
+end
+
+break *0x402bcb
+commands
+printf "==========================\n"
+printf "BOMB IS ABOUT TO EXPLODE!\n"
+printf "==========================\n"
+end

@@ -1,0 +1,331 @@
+Breakpoint 1 at 0x403a57: file bomb.c, line 63.
+Breakpoint 2 at 0x403a75: file bomb.c, line 66.
+Breakpoint 3 at 0x4011c7: file phases.c, line 308.
+Breakpoint 4 at 0x4011fd: file phases.c, line 312.
+Breakpoint 5 at 0x401218: file phases.c, line 318.
+Breakpoint 6 at 0x401272: file phases.c, line 327.
+Breakpoint 7 at 0x40128d: file phases.c, line 332.
+Breakpoint 8 at 0x4012dd: file phases.c, line 336.
+Breakpoint 9 at 0x4012f8: file phases.c, line 345.
+Breakpoint 10 at 0x40134d: file phases.c, line 353.
+Breakpoint 11 at 0x401368: file phases.c, line 359.
+Breakpoint 12 at 0x4013dc: file phases.c, line 368.
+Breakpoint 13 at 0x4013f7: file phases.c, line 373.
+Breakpoint 14 at 0x401438: file phases.c, line 377.
+Breakpoint 15 at 0x401453: file phases.c, line 384.
+Breakpoint 16 at 0x4014d4: file phases.c, line 395.
+Breakpoint 17 at 0x4014ee: file phases.c, line 403.
+Breakpoint 18 at 0x40162b: file phases.c, line 437.
+Breakpoint 19 at 0x401646: file phases.c, line 442.
+Breakpoint 20 at 0x4016c1: file phases.c, line 450.
+Breakpoint 21 at 0x4016dc: file phases.c, line 457.
+Breakpoint 22 at 0x401742: file phases.c, line 464.
+Breakpoint 23 at 0x401fa3
+Breakpoint 24 at 0x4020f9
+Breakpoint 25 at 0x402249
+Breakpoint 26 at 0x4024bd
+Breakpoint 27 at 0x4024c4
+Breakpoint 28 at 0x40259a
+Breakpoint 29 at 0x4025a0
+Breakpoint 30 at 0x4025b5
+Breakpoint 31 at 0x40265f
+Breakpoint 32 at 0x402675
+Breakpoint 33 at 0x4026a3
+Breakpoint 34 at 0x4026ab
+Breakpoint 35 at 0x40279e
+Breakpoint 36 at 0x40348f
+Breakpoint 37 at 0x4034ae
+Breakpoint 38 at 0x40350b
+Breakpoint 39 at 0x402bcb
+Starting program: /home/students/s4742874/ASSIGNMENTS/a2/csse2310a2/bomb 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+[Detaching after fork from child process 3405220]
+
+Breakpoint 36, 0x000000000040348f in db_record_input ()
+==========================
+About to read secret string
+Secret input is [6 6 6 4 6 0 2 1 6]
+0x609050 <inputStrings+720>:	"6 6 6 4 6 0 2 1 6"
+==========================
+Missing separate debuginfos, use: yum debuginfo-install glibc-2.28-225.el8.x86_64 gmp-6.1.2-10.el8.x86_64 gnutls-3.6.16-6.el8_7.x86_64 libffi-3.1-24.el8.x86_64 libidn2-2.2.0-1.el8.x86_64 libtasn1-4.13-4.el8_7.x86_64 libunistring-0.9.9-3.el8.x86_64 nettle-3.4.1-7.el8.x86_64 openssl-libs-1.1.1k-9.el8_7.x86_64 p11-kit-0.23.22-1.el8.x86_64 zlib-1.2.11-21.el8_7.x86_64
+Continuing.
+
+Breakpoint 37, 0x00000000004034ae in db_record_input ()
+==========================
+Formatted packet is [input96 6 6 4 6 0 2 1 6]
+0x7fffffffced0:	"input96 6 6 4 6 0 2 1 6"
+==========================
+Continuing.
+
+Breakpoint 38, 0x000000000040350b in db_record_input ()
+==========================
+DB status: OK
+==========================
+Continuing.
+
+Breakpoint 2, main (argc=1, argv=0x7fffffffd3f8) at bomb.c:66
+Continuing.
+
+Breakpoint 21, phase_nine (input=0x609050 <inputStrings+720> "6 6 6 4 6 0 2 1 6") at phases.c:457
+Continuing.
+
+Breakpoint 23, 0x0000000000401fa3 in reset_secret_string ()
+==========================
+RESETTING SECRET WORD
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$1 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [6]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [96]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$2 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [6]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [96]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$3 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [6]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [96]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$4 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [4]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [94]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$5 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [6]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [96]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$6 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [0]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [90]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$7 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [2]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [92]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$8 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [1]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [91]
+==========================
+
+Breakpoint 24, 0x00000000004020f9 in append_to_secret_string ()
+==========================
+Phase is 9
+$9 = 57 '9'
+==========================
+Continuing.
+
+Breakpoint 25, 0x0000000000402249 in append_to_secret_string ()
+==========================
+About to add space char
+Secret word is [9 ]
+0x7fffffffd0c0:	"9 "
+==========================
+Continuing.
+
+Breakpoint 26, 0x00000000004024bd in append_to_secret_string ()
+==========================
+Formatted int is [6]
+==========================
+
+Breakpoint 27, 0x00000000004024c4 in append_to_secret_string ()
+==========================
+Formatted with phase int is [96]
+==========================
+
+Breakpoint 22, phase_nine (input=0x609050 <inputStrings+720> "6 6 6 4 6 0 2 1 6") at phases.c:464
+Continuing.
+
+Breakpoint 35, 0x000000000040279e in secret_string_matches ()
+==========================
+==========================
+==========================
+
+CHECKING SECRET STRING MATCH!
+
+==========================
+==========================
+==========================
+Continuing.
+
+Breakpoint 36, 0x000000000040348f in db_record_input ()
+==========================
+About to read secret string
+Secret input is [6 6 6 4 6 0 2 1 6]
+0x609050 <inputStrings+720>:	"6 6 6 4 6 0 2 1 6"
+==========================
+Continuing.
+
+Breakpoint 37, 0x00000000004034ae in db_record_input ()
+==========================
+Formatted packet is [attempt96 6 6 4 6 0 2 1 6]
+0x7fffffffce60:	"attempt96 6 6 4 6 0 2 1 6"
+==========================
+Continuing.
+
+Breakpoint 38, 0x000000000040350b in db_record_input ()
+==========================
+DB status: OK
+==========================
+Continuing.
+[Inferior 1 (process 3405056) exited normally]
+The program is not being run.
